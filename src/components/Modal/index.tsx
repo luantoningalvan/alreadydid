@@ -17,10 +17,16 @@ interface ModalProps {
   onClose(): void;
   title?: string;
   closeButton?: boolean;
+  footer?: {
+    primary: {
+      text: string;
+      onClick(): void;
+    };
+  };
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
-  const { open, onClose, title, closeButton, children } = props;
+  const { open, onClose, title, closeButton, footer, children } = props;
 
   const modalRef = useRef(null);
 
@@ -80,9 +86,13 @@ const Modal: React.FC<ModalProps> = (props) => {
 
               <ModalContent>{children}</ModalContent>
 
-              <ModalFooter>
-                <Button>Cadastrar</Button>
-              </ModalFooter>
+              {footer && (
+                <ModalFooter>
+                  <Button onClick={footer.primary.onClick}>
+                    {footer.primary.text}
+                  </Button>
+                </ModalFooter>
+              )}
             </ModalBackground>
           </ModalContainer>
         </>,

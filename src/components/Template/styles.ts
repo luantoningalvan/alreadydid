@@ -28,7 +28,7 @@ export const Header = styled.header`
   width: 100%;
   height: 64px;
   background: red;
-  padding: 0px 5%;
+  padding: 0px calc((100% - 1024px) / 2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,5 +58,24 @@ export const Header = styled.header`
     button + button {
       margin-left: 8px;
     }
+  }
+`;
+
+export const UserAvatar = styled.button`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-left: 16px;
+  cursor: pointer;
+  border: none;
+
+  img {
+    height: 100%;
+    width: 100%;
   }
 `;
