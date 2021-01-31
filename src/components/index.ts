@@ -1,3 +1,11 @@
-export { default as IconButton } from "./IconButton";
+export { default as Container } from "./Container";
+export { default as Dropdown } from "./Dropdown";
+export { default as Grid } from "./Grid";
 export { default as Button } from "./Button";
+export { default as IconButton } from "./IconButton";
+export { default as Input } from "./Input";
+export { default as InputLabel } from "./InputLabel";
+export { default as Menu } from "./Menu";
+export { default as Modal } from "./Modal";
 export { default as Template } from "./Template";
+export { default as Tooltip } from "./Tooltip";

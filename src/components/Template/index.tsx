@@ -1,27 +1,23 @@
 import React, { useCallback, useState } from "react";
+
 import { GlobalStyle, Header, UserAvatar } from "./styles";
-import { FiPlusCircle, FiUser } from "react-icons/fi";
-import { Button, IconButton } from "../";
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.svg";
-import NewIdeia from "../../components/NewIdeia";
-import Authenticate from "../../components/Authenticate";
-import { ThemeProvider } from "styled-components";
-import { Menu } from "../Menu";
+import { Button, IconButton, Menu } from "../";
+import NewIdeia from "../NewIdeia";
+import Authenticate from "../Authenticate";
+
+import { FiHeart, FiLogOut, FiPlusCircle, FiUser } from "react-icons/fi";
+
 import { useAuth } from "../../hooks/AuthContext";
+import { Link, useHistory } from "react-router-dom";
+
+import logo from "../../assets/logo.svg";
 
 const Template: React.FC = ({ children }) => {
   const [authDialog, setAuthDialog] = useState(false);
   const [createIdeiaDialog, setCreateIdeiaDialog] = useState(false);
   const [menu, setMenu] = useState(null);
   const { currentUser, logout } = useAuth();
-
-  const theme = {
-    palette: {
-      primary: { background: "#F35773", foreground: "#fff" },
-      secondary: { background: "#1ABDB3", foreground: "#fff" },
-    },
-  };
+  const { push } = useHistory();
 
   const handleLoginDialog = useCallback(() => {
     setAuthDialog(!authDialog);
@@ -35,12 +31,12 @@ const Template: React.FC = ({ children }) => {
     }
   }, [currentUser]);
 
-  const handeLogout = useCallback(() => {
+  const handleLogout = useCallback(() => {
     logout();
   }, [logout]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <GlobalStyle />
 
       <NewIdeia
@@ -71,7 +67,14 @@ const Template: React.FC = ({ children }) => {
                 open={Boolean(menu)}
                 anchorEl={menu}
                 onClose={() => setMenu(null)}
-                options={[{ label: "Sair", onClick: handeLogout }]}
+                options={[
+                  {
+                    label: "Favoritos",
+                    icon: <FiHeart />,
+                    onClick: () => push("/wish"),
+                  },
+                  { label: "Sair", icon: <FiLogOut />, onClick: handleLogout },
+                ]}
               />
             </>
           )}
@@ -79,7 +82,7 @@ const Template: React.FC = ({ children }) => {
       </Header>
 
       <main>{children}</main>
-    </ThemeProvider>
+    </>
   );
 };
 

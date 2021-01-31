@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown, DropdownProps } from "../Dropdown";
-import { MenuContainer, MenuItem, MenuItemIcon } from "./Menu.styles";
+import { MenuContainer, MenuItem, MenuItemIcon } from "./styles";
 
 interface MenuProps extends DropdownProps {
   options: {
