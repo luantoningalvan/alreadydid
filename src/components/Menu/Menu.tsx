@@ -28,7 +28,12 @@ export const Menu: React.FC<MenuProps> = ({
     >
       <MenuContainer>
         {options.map((option) => (
-          <MenuItem onClick={option.onClick}>
+          <MenuItem
+            onClick={() => {
+              onClose();
+              option.onClick && option.onClick();
+            }}
+          >
             {option.icon && <MenuItemIcon>{option.icon}</MenuItemIcon>}
             {option.label}
           </MenuItem>

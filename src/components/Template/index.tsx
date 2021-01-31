@@ -1,25 +1,20 @@
 import React, { useCallback, useState } from "react";
 import { GlobalStyle, Header, UserAvatar } from "./styles";
-import { FiHeart, FiPlusCircle, FiUser } from "react-icons/fi";
+import { FiPlusCircle, FiUser } from "react-icons/fi";
 import { Button, IconButton } from "../";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import NewIdeia from "../../components/NewIdeia";
 import Authenticate from "../../components/Authenticate";
 import { ThemeProvider } from "styled-components";
-import firebase from "firebase";
 import { Menu } from "../Menu";
+import { useAuth } from "../../hooks/AuthContext";
 
 const Template: React.FC = ({ children }) => {
   const [authDialog, setAuthDialog] = useState(false);
   const [createIdeiaDialog, setCreateIdeiaDialog] = useState(false);
   const [menu, setMenu] = useState(null);
-
-  console.log(menu);
-
-  const authenticated = firebase.auth().currentUser;
-
-  console.log(authenticated);
+  const { currentUser, logout } = useAuth();
 
   const theme = {
     palette: {
@@ -33,24 +28,16 @@ const Template: React.FC = ({ children }) => {
   }, [authDialog]);
 
   const handleCreateIdeiaDialog = useCallback(() => {
-    if (authenticated) {
+    if (currentUser) {
       setCreateIdeiaDialog(true);
     } else {
       setAuthDialog(true);
     }
-  }, [authenticated]);
+  }, [currentUser]);
 
   const handeLogout = useCallback(() => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  }, []);
+    logout();
+  }, [logout]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -73,11 +60,11 @@ const Template: React.FC = ({ children }) => {
             Criar sugestão
           </Button>
 
-          {!authenticated && (
+          {!currentUser && (
             <IconButton icon={FiUser} onClick={handleLoginDialog} />
           )}
 
-          {authenticated && (
+          {currentUser && (
             <>
               <UserAvatar onClick={(e: any) => setMenu(e.target)}>L</UserAvatar>
               <Menu

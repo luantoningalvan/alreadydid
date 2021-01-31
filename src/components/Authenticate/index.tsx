@@ -4,7 +4,7 @@ import { Form } from "@unform/web";
 import Input from "../Input";
 import Grid from "../Grid";
 import Button from "../Button";
-import firebase from "firebase";
+import { useAuth } from "../../hooks/AuthContext";
 
 interface NewIdeiaProps {
   open: boolean;
@@ -14,33 +14,16 @@ interface NewIdeiaProps {
 const NewIdeia: React.FC<NewIdeiaProps> = (props) => {
   const { open, onClose } = props;
   const [form, setForm] = useState("signin");
+  const { login, signup } = useAuth();
 
   const handleSignIn = ({ email, password }: any) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        // Signed in
-        // ...
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
+    login({ email, password });
+    onClose();
   };
 
   const handleSignUp = ({ email, password }: any) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        alert("Cadastro realizado com sucesso");
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ..
-      });
+    signup({ email, password });
+    onClose();
   };
 
   return (
