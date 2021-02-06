@@ -10,15 +10,13 @@ interface IdeiaProps {
     id: string;
     title: string;
     description: string;
-    category: {
-      name: string;
-      id: string;
-    };
+    category: string;
   };
 }
 
 const Ideia: React.FC<IdeiaProps> = (props) => {
   const { id, title, description, category } = props.ideia;
+
   const history = useHistory();
   return (
     <IdeiaContainer>
@@ -30,17 +28,17 @@ const Ideia: React.FC<IdeiaProps> = (props) => {
       <h3>{title}</h3>
       <p>{description}</p>
       <div className="footer">
-        <div>
-          <Button variant="outlined" startIcon={FiCheck}>
-            Já fiz
-          </Button>
-          <IconButton icon={FiHeart} />
-        </div>
+        <Button variant="outlined" startIcon={FiCheck}>
+          Já fiz
+        </Button>
+        <IconButton icon={FiHeart} />
 
-        <div>
+        {/**
+         * <div>
           <IconButton icon={FiArrowUp} />
           <IconButton icon={FiArrowDown} />
         </div>
+         */}
       </div>
     </IdeiaContainer>
   );

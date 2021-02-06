@@ -2,6 +2,7 @@ import Routes from "./routes";
 import "./config/firebase";
 import { AuthProvider } from "./hooks/AuthContext";
 import { UsersProvider } from "./hooks/UsersContext";
+import { IdeiasProvider } from "./hooks/IdeiasContext";
 import { ThemeProvider } from "styled-components";
 
 const theme = {
@@ -16,7 +17,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <UsersProvider>
-          <Routes />
+          <IdeiasProvider>
+            <Routes />
+          </IdeiasProvider>
         </UsersProvider>
       </AuthProvider>
     </ThemeProvider>

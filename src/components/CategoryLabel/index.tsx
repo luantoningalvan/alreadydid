@@ -1,11 +1,9 @@
 import React from "react";
 import { CategoryLabelContainer } from "./styles";
 import { Link } from "react-router-dom";
+
 interface CategoryLabelProps {
-  category: {
-    name: string;
-    id: string;
-  };
+  category: string;
 }
 
 const CategoryLabel: React.FC<CategoryLabelProps> = (props) => {
@@ -13,7 +11,7 @@ const CategoryLabel: React.FC<CategoryLabelProps> = (props) => {
 
   return (
     <CategoryLabelContainer>
-      <Link to={`/category/${category.id}`}>{category.name}</Link>
+      <Link to={`/category/${category}`}>{category}</Link>
     </CategoryLabelContainer>
   );
 };

@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import IdeiaCard from "../../components/IdeiaCard";
 import { Grid, Container } from "../../components";
-import { firestore } from "../../config/firebase";
 import { ContentLoader, Skeleton } from "./styles";
-
-type Ideia = {
-  id: string;
-  title: string;
-};
+import { useIdeias } from "../../hooks/IdeiasContext";
 
 const Home = () => {
-  const [data, setData] = useState<Ideia[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { loading, fetchIdeias, list } = useIdeias();
 
   useEffect(() => {
-    let newState: any = [];
-    setLoading(true);
-
-    firestore
-      .collection("ideias")
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          newState.push({ id: doc.id, ...data });
-        });
-
-        setData(newState);
-        setLoading(false);
-      });
+    fetchIdeias();
   }, []);
 
   return (
@@ -36,21 +16,9 @@ const Home = () => {
       <Grid container spacing={2} style={{ margin: "32px 0" }}>
         {!loading ? (
           <>
-            {data.map((ideia) => (
+            {list.map((ideia) => (
               <Grid item xs={4}>
-                <IdeiaCard
-                  key={ideia.id}
-                  ideia={{
-                    id: ideia.id,
-                    title: ideia.title,
-                    description:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet, justo ut tempor faucibus, lectus erat aliquet eros, et mollis lacus arcu in leo",
-                    category: {
-                      id: "asdasd",
-                      name: "Culinária",
-                    },
-                  }}
-                />
+                <IdeiaCard key={ideia.id} ideia={ideia} />
               </Grid>
             ))}
           </>

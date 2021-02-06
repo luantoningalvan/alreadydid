@@ -36,6 +36,7 @@ export const ModalHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   margin: 24px;
+  margin-bottom: 0;
 `;
 
 export const ModalContent = styled.div`
