@@ -69,9 +69,9 @@ const Template: React.FC = ({ children }) => {
                 onClose={() => setMenu(null)}
                 options={[
                   {
-                    label: "Favoritos",
-                    icon: <FiHeart />,
-                    onClick: () => push("/wish"),
+                    label: "Perfil",
+                    icon: <FiUser />,
+                    onClick: () => push(`/${currentUser.uid}`),
                   },
                   { label: "Sair", icon: <FiLogOut />, onClick: handleLogout },
                 ]}
